@@ -75,17 +75,10 @@ namespace DelivericiousNet.Core.Test
             basket.Add(chocolateIceCreamsBasketItem);
             basket.Add(seaFoodSaladBasketItem);
             var result = basket.Copy();
-            var items = basket.Items().ToList();
             var resultItems = result.Items().ToList();
+            var expectedItems = new [] { chocolateIceCreamsBasketItem, seaFoodSaladBasketItem }.ToList();
             Assert.NotEqual(result.GetBasketId(), basket.GetBasketId());
-            
-            for (var i = 0; i < items.Count; i++)
-            {
-                Assert.Equal(resultItems[i].Menu.Name, items[i].Menu.Name);
-                Assert.Equal(resultItems[i].Menu.Price.Amount, items[i].Menu.Price.Amount);
-                Assert.Equal(resultItems[i].Menu.Price.Currency, items[i].Menu.Price.Currency);
-                Assert.Equal(resultItems[i].Quantity, items[i].Quantity);
-            }
+            Assert.Equal(resultItems, expectedItems);
         }
 
         [Fact]
