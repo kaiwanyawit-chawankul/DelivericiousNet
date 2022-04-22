@@ -4,7 +4,7 @@ namespace DelivericiousNet.Core
     {
         public BasketItem(Menu menu) : this(menu, 1) { }
 
-        public BasketItem(Menu menu, int quantity)
+        public BasketItem(Menu menu, int quantity = 1)
         {
             Menu = menu;
             Quantity = quantity;

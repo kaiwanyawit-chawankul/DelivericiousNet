@@ -15,22 +15,17 @@ namespace DelivericiousNet.Core
         {
             this.id = id;
         }
-        
-        public void Add(Menu menu)
-        {
-            Add(menu, 1);
-        }
 
-        public void Add(Menu menu, int quantity)
+        public void Add(BasketItem basketItem)
         {
-            var found = _items.Where(x => x.Menu.Name == menu.Name).FirstOrDefault();
+            var found = _items.Where(x => x.Menu.Name == basketItem.Menu.Name).FirstOrDefault();
             if (found == null)
             {
-                _items.Add(new BasketItem(menu, quantity));
+                _items.Add(basketItem);
             }
             else
             {
-                found.Quantity += quantity;
+                found.Quantity += basketItem.Quantity;
             }
         }
 
@@ -75,7 +70,7 @@ namespace DelivericiousNet.Core
             var newBasket = new Basket();
             foreach (var item in _items)
             {
-                newBasket.Add(item.Menu, item.Quantity);
+                newBasket.Add(item);
             }
             return newBasket;
         }

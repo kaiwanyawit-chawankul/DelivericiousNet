@@ -9,7 +9,9 @@ namespace DelivericiousNet.Core.Test
         public void WhenAddItemCount_ShouldIncreaseItemCount()
         {
             Basket basket = new Basket();
-            basket.Add(new Menu("Tomato soup"));
+            var tomatoSoup = new Menu("Tomato soup");
+            var tomatoSoupBasketItem = new BasketItem(tomatoSoup);
+            basket.Add(tomatoSoupBasketItem);
             Assert.Equal(1, basket.Items().Count);
         }
 
@@ -17,7 +19,9 @@ namespace DelivericiousNet.Core.Test
         public void WhenAddTomatoSoup_ShouldFound()
         {
             Basket basket = new Basket();
-            basket.Add(new Menu("Tomato soup"));
+            var tomatoSoup = new Menu("Tomato soup");
+            var tomatoSoupBasketItem = new BasketItem(tomatoSoup);
+            basket.Add(tomatoSoupBasketItem);
             Assert.Equal("Tomato soup", basket.Items().First().Menu.Name);
         }
 
@@ -26,7 +30,8 @@ namespace DelivericiousNet.Core.Test
         {
             Basket basket = new Basket();
             var seaFoodSalad = new Menu("Sea food Salad", Money.SGD(12));
-            basket.Add(seaFoodSalad);
+            var seaFoodSaladBasketItem = new BasketItem(seaFoodSalad);
+            basket.Add(seaFoodSaladBasketItem);
             Assert.Equal(seaFoodSalad.Name, basket.Items().First().Menu.Name);
             Assert.Equal(seaFoodSalad.Price.Amount, basket.Items().First().Menu.Price.Amount);
             Assert.Equal(seaFoodSalad.Price.Currency, basket.Items().First().Menu.Price.Currency);
@@ -37,7 +42,8 @@ namespace DelivericiousNet.Core.Test
         {
             Basket basket = new Basket();
             var chocolateIceCreams = new Menu("Chocolate Ice Cream", Money.SGD(4));
-            basket.Add(chocolateIceCreams, 3);
+            var chocolateIceCreamsBasketItem = new BasketItem(chocolateIceCreams, 3);
+            basket.Add(chocolateIceCreamsBasketItem);
             Assert.Equal(chocolateIceCreams.Name, basket.Items().First().Menu.Name);
             Assert.Equal(chocolateIceCreams.Price.Amount, basket.Items().First().Menu.Price.Amount);
             Assert.Equal(
@@ -52,7 +58,8 @@ namespace DelivericiousNet.Core.Test
         {
             Basket basket = new Basket();
             var chocolateIceCreams = new Menu("Chocolate Ice Cream", Money.SGD(4));
-            basket.Add(chocolateIceCreams, 3);
+            var chocolateIceCreamsBasketItem = new BasketItem(chocolateIceCreams, 3);
+            basket.Add(chocolateIceCreamsBasketItem);
             basket.Remove(chocolateIceCreams);
             Assert.Equal(2, basket.Items().First().Quantity);
         }
@@ -63,8 +70,10 @@ namespace DelivericiousNet.Core.Test
             Basket basket = new Basket();
             var chocolateIceCreams = new Menu("Chocolate Ice Cream", Money.SGD(4));
             var seaFoodSalad = new Menu("Sea food Salad", Money.SGD(12));
-            basket.Add(chocolateIceCreams, 3);
-            basket.Add(seaFoodSalad);
+            var chocolateIceCreamsBasketItem = new BasketItem(chocolateIceCreams, 3);
+            var seaFoodSaladBasketItem = new BasketItem(seaFoodSalad);
+            basket.Add(chocolateIceCreamsBasketItem);
+            basket.Add(seaFoodSaladBasketItem);
             var result = basket.Copy();
             var items = basket.Items().ToList();
             var resultItems = result.Items().ToList();
@@ -85,8 +94,10 @@ namespace DelivericiousNet.Core.Test
             Basket basket = new Basket();
             var chocolateIceCreams = new Menu("Chocolate Ice Cream", Money.SGD(4));
             var seaFoodSalad = new Menu("Sea food Salad", Money.SGD(12));
-            basket.Add(chocolateIceCreams, 3);
-            basket.Add(seaFoodSalad);
+            var chocolateIceCreamsBasketItem = new BasketItem(chocolateIceCreams, 3);
+            var seaFoodSaladBasketItem = new BasketItem(seaFoodSalad);
+            basket.Add(chocolateIceCreamsBasketItem);
+            basket.Add(seaFoodSaladBasketItem);
             Assert.Equal(24, basket.Total());
         }
     }
