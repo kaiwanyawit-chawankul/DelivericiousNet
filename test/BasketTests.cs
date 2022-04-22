@@ -25,22 +25,34 @@ namespace DelivericiousNet.Core.Test
         public void WhenAddSeafoodSaladWithCostPrice12SGD_ShouldFound()
         {
             Basket basket = new Basket();
-            var seaFoodSalad = new Menu("Sea food Salad", 12);
+            var seaFoodSalad = new Menu("Sea food Salad", Money.SGD(12));
             basket.Add(seaFoodSalad);
             Assert.Equal(seaFoodSalad.Name, basket.Items().First().Name);
-            Assert.Equal(seaFoodSalad.Cost, basket.Items().First().Cost);
-            Assert.Equal(seaFoodSalad.Currency, basket.Items().First().Currency);
+            Assert.Equal(seaFoodSalad.Price.Amount, basket.Items().First().Price.Amount);
+            Assert.Equal(seaFoodSalad.Price.Currency, basket.Items().First().Price.Currency);
         }
 
         [Fact]
         public void WhenAdd3ChocolateIceCreamWithPrice4SGD_ShouldFound()
         {
             Basket basket = new Basket();
-            var chocolateIceCreams = new Menu("Chocolate Ice Cream", 4, 3);
+            var chocolateIceCreams = new Menu("Chocolate Ice Cream", Money.SGD(4), 3);
             basket.Add(chocolateIceCreams);
             Assert.Equal(chocolateIceCreams.Name, basket.Items().First().Name);
-            Assert.Equal(chocolateIceCreams.Cost, basket.Items().First().Cost);
+            Assert.Equal(chocolateIceCreams.Price.Amount, basket.Items().First().Price.Amount);
+            Assert.Equal(chocolateIceCreams.Price.Currency, basket.Items().First().Price.Currency);
             Assert.Equal(chocolateIceCreams.Quantity, basket.Items().First().Quantity);
+        }
+
+        [Fact]
+        public void WhenRemoveChocolateIceCream_ShouldNotBeFound()
+        {
+            Basket basket = new Basket();
+            var chocolateIceCreams = new Menu("Chocolate Ice Cream", Money.SGD(4), 3);
+            basket.Add(chocolateIceCreams);
+            var itemToRemove = new Menu("Chocolate Ice Cream");
+            basket.Remove(itemToRemove);
+            Assert.Equal(2, basket.Items().First().Quantity);
         }
     }
 }

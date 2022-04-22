@@ -2,22 +2,20 @@ namespace DelivericiousNet.Core
 {
     public class Menu
     {
-        public Menu(string name) : this(name, 0, 1, "SGD")
+        public Menu(string name) : this(name, Money.Null(), 1)
         {
             Name = name;
         }
 
-        public Menu(string name, int cost, int quantity = 1, string currency = "SGD")
+        public Menu(string name, Money price, int quantity = 1)
         {
             Name = name;
-            Cost = cost;
+            Price = price;
             Quantity = quantity;
-            Currency = currency;
         }
 
         public string Name { get; }
-        public int Cost { get; }
-        public int Quantity { get; }
-        public string Currency { get; }
+        public Money Price { get; }
+        public int Quantity { get; set; }
     }
 }

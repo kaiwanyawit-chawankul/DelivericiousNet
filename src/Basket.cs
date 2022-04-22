@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DelivericiousNet.Core
 {
@@ -19,6 +21,15 @@ namespace DelivericiousNet.Core
         public IReadOnlyCollection<Menu> Items()
         {
             return _menu.AsReadOnly();
+        }
+
+        public void Remove(Menu chocolateIceCreams)
+        {
+            var found = _menu.Where(x => x.Name == chocolateIceCreams.Name).FirstOrDefault();
+            if (found != null)
+            {
+                found.Quantity -= chocolateIceCreams.Quantity;
+            }
         }
     }
 }
