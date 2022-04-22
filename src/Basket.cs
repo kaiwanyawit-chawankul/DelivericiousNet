@@ -10,7 +10,21 @@ namespace DelivericiousNet.Core
 
         public void Add(Menu menu)
         {
-            _menu.Add(menu);
+            var found = _menu.Where(x => x.Name == menu.Name).FirstOrDefault();
+            if (found == null)
+            {
+                _menu.Add(
+                    new Menu(
+                        menu.Name,
+                        new Money(menu.Price.Amount, menu.Price.Currency),
+                        menu.Quantity
+                    )
+                );
+            }
+            else
+            {
+                found.Quantity += menu.Quantity;
+            }
         }
 
         public int Count()
@@ -23,13 +37,30 @@ namespace DelivericiousNet.Core
             return _menu.AsReadOnly();
         }
 
+        public decimal Total()
+        {
+            return _menu.Sum(x => x.Price.Amount * x.Quantity);
+        }
+
         public void Remove(Menu chocolateIceCreams)
         {
             var found = _menu.Where(x => x.Name == chocolateIceCreams.Name).FirstOrDefault();
             if (found != null)
             {
                 found.Quantity -= chocolateIceCreams.Quantity;
+                if (found.Quantity == 0)
+                    _menu.Remove(found);
             }
+        }
+
+        public Basket Copy()
+        {
+            var newBasket = new Basket();
+            foreach (var item in _menu)
+            {
+                newBasket.Add(item);
+            }
+            return newBasket;
         }
     }
 }

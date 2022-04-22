@@ -54,5 +54,38 @@ namespace DelivericiousNet.Core.Test
             basket.Remove(itemToRemove);
             Assert.Equal(2, basket.Items().First().Quantity);
         }
+
+        [Fact]
+        public void WhenCopy_ShouldHaveACopy()
+        {
+            Basket basket = new Basket();
+            var chocolateIceCreams = new Menu("Chocolate Ice Cream", Money.SGD(4), 3);
+            var seaFoodSalad = new Menu("Sea food Salad", Money.SGD(12));
+            basket.Add(chocolateIceCreams);
+            basket.Add(seaFoodSalad);
+            var result = basket.Copy();
+            var items = basket.Items().ToList();
+            var resultItems = result.Items().ToList();
+            Assert.NotEqual(result, basket);
+
+            for (var i = 0; i < items.Count; i++)
+            {
+                Assert.Equal(resultItems[i].Name, items[i].Name);
+                Assert.Equal(resultItems[i].Price.Amount, items[i].Price.Amount);
+                Assert.Equal(resultItems[i].Price.Currency, items[i].Price.Currency);
+                Assert.Equal(resultItems[i].Quantity, items[i].Quantity);
+            }
+        }
+
+        [Fact]
+        public void WhenGetTotal_ShouldCorrect()
+        {
+            Basket basket = new Basket();
+            var chocolateIceCreams = new Menu("Chocolate Ice Cream", Money.SGD(4), 3);
+            var seaFoodSalad = new Menu("Sea food Salad", Money.SGD(12));
+            basket.Add(chocolateIceCreams);
+            basket.Add(seaFoodSalad);
+            Assert.Equal(24, basket.Total());
+        }
     }
 }

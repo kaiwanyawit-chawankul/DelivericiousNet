@@ -13,7 +13,7 @@ namespace DelivericiousNet.Core
 
         public static Money Null()
         {
-            return null;
+            return new Money(0, "");
         }
 
         public static Money SGD(decimal amount)
