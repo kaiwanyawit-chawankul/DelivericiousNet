@@ -6,59 +6,63 @@ namespace DelivericiousNet.Core
 {
     public class Basket
     {
-        private List<Menu> _menu = new List<Menu>();
+        private List<BasketItem> _items = new List<BasketItem>();
 
         public void Add(Menu menu)
         {
-            var found = _menu.Where(x => x.Name == menu.Name).FirstOrDefault();
+            Add(menu, 1);
+        }
+
+        public void Add(Menu menu, int quantity)
+        {
+            var found = _items.Where(x => x.Menu.Name == menu.Name).FirstOrDefault();
             if (found == null)
             {
-                _menu.Add(
-                    new Menu(
-                        menu.Name,
-                        new Money(menu.Price.Amount, menu.Price.Currency),
-                        menu.Quantity
-                    )
-                );
+                _items.Add(new BasketItem(menu, quantity));
             }
             else
             {
-                found.Quantity += menu.Quantity;
+                found.Quantity += quantity;
             }
         }
 
         public int Count()
         {
-            return _menu.Count;
+            return _items.Count;
         }
 
-        public IReadOnlyCollection<Menu> Items()
+        public IReadOnlyCollection<BasketItem> Items()
         {
-            return _menu.AsReadOnly();
+            return _items.AsReadOnly();
         }
 
         public decimal Total()
         {
-            return _menu.Sum(x => x.Price.Amount * x.Quantity);
+            return _items.Sum(x => x.Menu.Price.Amount * x.Quantity);
         }
 
-        public void Remove(Menu chocolateIceCreams)
+        public void Remove(Menu menu)
         {
-            var found = _menu.Where(x => x.Name == chocolateIceCreams.Name).FirstOrDefault();
+            Remove(menu, 1);
+        }
+
+        public void Remove(Menu menu, int quantity)
+        {
+            var found = _items.Where(x => x.Menu.Name == menu.Name).FirstOrDefault();
             if (found != null)
             {
-                found.Quantity -= chocolateIceCreams.Quantity;
+                found.Quantity -= quantity;
                 if (found.Quantity == 0)
-                    _menu.Remove(found);
+                    _items.Remove(found);
             }
         }
 
         public Basket Copy()
         {
             var newBasket = new Basket();
-            foreach (var item in _menu)
+            foreach (var item in _items)
             {
-                newBasket.Add(item);
+                newBasket.Add(item.Menu, item.Quantity);
             }
             return newBasket;
         }
