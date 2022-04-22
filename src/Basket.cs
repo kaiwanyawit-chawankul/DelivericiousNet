@@ -6,8 +6,16 @@ namespace DelivericiousNet.Core
 {
     public class Basket
     {
+        private Guid id;
         private List<BasketItem> _items = new List<BasketItem>();
 
+        public Basket() : this(Guid.NewGuid()){}
+        
+        public Basket(Guid id)
+        {
+            this.id = id;
+        }
+        
         public void Add(Menu menu)
         {
             Add(menu, 1);
@@ -26,6 +34,11 @@ namespace DelivericiousNet.Core
             }
         }
 
+        public Guid GetBasketId()
+        {
+            return id;
+        }
+        
         public int Count()
         {
             return _items.Count;

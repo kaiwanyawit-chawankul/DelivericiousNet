@@ -68,8 +68,8 @@ namespace DelivericiousNet.Core.Test
             var result = basket.Copy();
             var items = basket.Items().ToList();
             var resultItems = result.Items().ToList();
-            Assert.NotEqual(result, basket);
-
+            Assert.NotEqual(result.GetBasketId(), basket.GetBasketId());
+            
             for (var i = 0; i < items.Count; i++)
             {
                 Assert.Equal(resultItems[i].Menu.Name, items[i].Menu.Name);
