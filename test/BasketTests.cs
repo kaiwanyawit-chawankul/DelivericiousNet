@@ -30,6 +30,7 @@ public class BasketTests
         basket.Add(seaFoodSalad);
         Assert.Equal(seaFoodSalad.Name, basket.Items().First().Name);
         Assert.Equal(seaFoodSalad.Cost, basket.Items().First().Cost);
+        Assert.Equal(seaFoodSalad.Currency, basket.Items().First().Currency);
     }
 
     [Fact]
