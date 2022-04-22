@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DelivericiousNet.Core", "src\DelivericiousNet.Core.csproj", "{F786F52B-1FDB-4B8A-B200-5E30AD642F6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\DelivericiousNet.Core.Test.csproj", "{0AF60670-3103-4726-A745-9E2387511129}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F786F52B-1FDB-4B8A-B200-5E30AD642F6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F786F52B-1FDB-4B8A-B200-5E30AD642F6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F786F52B-1FDB-4B8A-B200-5E30AD642F6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F786F52B-1FDB-4B8A-B200-5E30AD642F6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AF60670-3103-4726-A745-9E2387511129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AF60670-3103-4726-A745-9E2387511129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AF60670-3103-4726-A745-9E2387511129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AF60670-3103-4726-A745-9E2387511129}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
