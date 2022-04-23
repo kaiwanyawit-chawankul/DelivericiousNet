@@ -122,7 +122,7 @@ namespace DelivericiousNet.Core.Test
         {
             Basket basket = new Basket();
             var tomatoSoup = new Menu("Tomato soup", Money.SGD(2), MenuType.SOUP);
-            var tomatoSoupBasketItem = new BasketItem(tomatoSoup, 5);
+            var tomatoSoupBasketItem = new BasketItem(tomatoSoup, 6);
             basket.Add(tomatoSoupBasketItem);
             var coupons = basket.AvailableCoupons();
             var expected = Basket.DELIVERICIOUS_10;

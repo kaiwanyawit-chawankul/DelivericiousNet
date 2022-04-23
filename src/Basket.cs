@@ -85,7 +85,7 @@ namespace DelivericiousNet.Core
         {
             _coupons.Clear();
             var count = _items.Where(item => item.Menu.MenuType == MenuType.SOUP).Sum((item) => item.Quantity);
-            if (count >= 5 && !_coupons.Contains(DELIVERICIOUS_10))
+            if (count > 5 && !_coupons.Contains(DELIVERICIOUS_10))
             {
                 _coupons.Add(DELIVERICIOUS_10);
             }
