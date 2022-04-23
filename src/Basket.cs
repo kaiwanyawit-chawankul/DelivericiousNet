@@ -7,14 +7,14 @@ namespace DelivericiousNet.Core
     public class Basket
     {
         private const int BASKET_LIMIT = 100;
-        private readonly Guid _id;
+        public Guid Id { get; }
         private readonly List<BasketItem> _items = new();
 
         public Basket() : this(Guid.NewGuid()) { }
 
         public Basket(Guid id)
         {
-            _id = id;
+            Id = id;
         }
 
         public void Add(BasketItem basketItem)
@@ -33,11 +33,6 @@ namespace DelivericiousNet.Core
             {
                 found.Quantity += basketItem.Quantity;
             }
-        }
-
-        public Guid GetBasketId()
-        {
-            return _id;
         }
 
         private int GetBasketQuantity()

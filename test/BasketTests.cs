@@ -85,7 +85,7 @@ namespace DelivericiousNet.Core.Test
                 seaFoodSaladBasketItem
             }.ToList();
 
-            Assert.NotEqual(result.GetBasketId(), basket.GetBasketId());
+            Assert.NotEqual(result.Id, basket.Id);
             Assert.Equal(resultItems, expectedItems);
         }
 
@@ -116,6 +116,16 @@ namespace DelivericiousNet.Core.Test
                 () => basket.Add(seaFoodSaladBasketItem)
             );
             Assert.Equal("You are already exceed the basket quantity", exception.Message);
+        }
+
+        [Fact]
+        public void ShouldSaveBasketInRepository()
+        {
+            Basket basket1 = new Basket();
+            BasketRepository basketRepository = new BasketRepository();
+            basketRepository.Add(basket1);
+            var savedBasket1 = basketRepository.GetBasket(basket1);
+            Assert.Equal(basket1.Id, savedBasket1.Id);
         }
     }
 }
