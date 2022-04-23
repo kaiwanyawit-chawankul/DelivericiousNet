@@ -135,5 +135,15 @@ namespace DelivericiousNet.Core.Test
             BasketRepository basketRepository = new BasketRepository();
             Assert.Throws<Exception>(() => basketRepository.Save(basket));
         }
+
+        [Fact]
+        public void ShouldNotAbleToGetBasketIfBasketIsNotExits()
+        {
+            Basket basket1 = new Basket();
+            Basket basket2 = new Basket();
+            BasketRepository basketRepository = new BasketRepository();
+            basketRepository.Save(basket1);
+            Assert.Null(basketRepository.GetBasketById(basket2.Id));
+        }
     }
 }
