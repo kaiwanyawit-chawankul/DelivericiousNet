@@ -6,19 +6,24 @@ namespace DelivericiousNet.Core
 {
     public class Basket
     {
-        private Guid id;
-        private List<BasketItem> _items = new List<BasketItem>();
-
+        private const int BASKET_LIMIT = 100;
+        private readonly Guid _id;
+        private readonly List<BasketItem> _items = new();
         public Basket() : this(Guid.NewGuid()){}
         
         public Basket(Guid id)
         {
-            this.id = id;
+            _id = id;
         }
 
         public void Add(BasketItem basketItem)
         {
-            var found = _items.Where(x => x.Menu.Name == basketItem.Menu.Name).FirstOrDefault();
+            if (Count() + basketItem.Quantity > BASKET_LIMIT)
+            {
+                throw new Exception();
+            }
+            
+            var found = _items.FirstOrDefault(x => x.Menu.Name == basketItem.Menu.Name);
             if (found == null)
             {
                 _items.Add(basketItem);
@@ -31,12 +36,12 @@ namespace DelivericiousNet.Core
 
         public Guid GetBasketId()
         {
-            return id;
+            return _id;
         }
-        
-        public int Count()
+
+        private int Count()
         {
-            return _items.Count;
+            return _items.Sum((item => item.Quantity));
         }
 
         public IReadOnlyCollection<BasketItem> Items()
@@ -49,20 +54,13 @@ namespace DelivericiousNet.Core
             return _items.Sum(x => x.Menu.Price.Amount * x.Quantity);
         }
 
-        public void Remove(Menu menu)
+        public void Remove(Menu menu, int quantity = 1)
         {
-            Remove(menu, 1);
-        }
-
-        public void Remove(Menu menu, int quantity)
-        {
-            var found = _items.Where(x => x.Menu.Name == menu.Name).FirstOrDefault();
-            if (found != null)
-            {
-                found.Quantity -= quantity;
-                if (found.Quantity == 0)
-                    _items.Remove(found);
-            }
+            var found = _items.FirstOrDefault(x => x.Menu.Name == menu.Name);
+            if (found == null) return;
+            found.Quantity -= quantity;
+            if (found.Quantity == 0)
+                _items.Remove(found);
         }
 
         public Basket Copy()

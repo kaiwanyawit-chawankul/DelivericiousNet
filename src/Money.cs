@@ -18,7 +18,7 @@ namespace DelivericiousNet.Core
 
         public static Money SGD(decimal amount)
         {
-            return new Money(amount, "SGD");
+            return new Money(amount, Core.Currency.SGD);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Xunit;
 
@@ -93,5 +94,17 @@ namespace DelivericiousNet.Core.Test
             basket.Add(seaFoodSaladBasketItem);
             Assert.Equal(24, basket.Total());
         }
+
+        [Fact]
+        public void WhenAddItem_ShouldLimitTo100()
+        {
+            Basket basket = new Basket();
+            var chocolateIceCreams = new Menu("Chocolate Ice Cream", Money.SGD(4));
+            var seaFoodSalad = new Menu("Sea food Salad", Money.SGD(12));
+            var chocolateIceCreamsBasketItem = new BasketItem(chocolateIceCreams, 99);
+            var seaFoodSaladBasketItem = new BasketItem(seaFoodSalad, 2);
+            basket.Add(chocolateIceCreamsBasketItem);
+            Assert.Throws<Exception>(() => basket.Add(seaFoodSaladBasketItem));}
+        }
     }
-}
+
