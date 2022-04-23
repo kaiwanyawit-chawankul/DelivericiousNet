@@ -1,6 +1,6 @@
 namespace DelivericiousNet.Core
 {
-    public class Menu
+    public record Menu
     {
         public Menu(string name) : this(name, Money.Null()) { }
 

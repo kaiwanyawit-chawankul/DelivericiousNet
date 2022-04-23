@@ -1,6 +1,6 @@
 namespace DelivericiousNet.Core
 {
-    public class Money
+    public record Money
     {
         public decimal Amount { get; }
         public string Currency { get; }
