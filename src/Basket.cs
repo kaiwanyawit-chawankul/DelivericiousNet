@@ -21,7 +21,7 @@ namespace DelivericiousNet.Core
         {
             if (GetBasketQuantity() + basketItem.Quantity > BASKET_LIMIT)
             {
-                throw new Exception("You are already exceed the basket quantity");
+                throw new BasketQuantityExceedException(BASKET_LIMIT);
             }
 
             var found = _items.FirstOrDefault(x => x.Menu.Name == basketItem.Menu.Name);

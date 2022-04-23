@@ -6,9 +6,9 @@ namespace DelivericiousNet.Core
     {
         private int Limit;
 
-        public BasketQuantityExceedException(int limt)
+        public BasketQuantityExceedException(int limit) : base("You are already exceed the basket quantity")
         {
-            this.Limit = limt;
+            this.Limit = limit;
         }
     }
 }

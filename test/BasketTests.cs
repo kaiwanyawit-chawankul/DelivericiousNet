@@ -112,7 +112,7 @@ namespace DelivericiousNet.Core.Test
             var seaFoodSaladBasketItem = new BasketItem(seaFoodSalad, 2);
             basket.Add(chocolateIceCreamsBasketItem);
 
-            var exception = Assert.Throws<Exception>(() => basket.Add(seaFoodSaladBasketItem));
+            var exception = Assert.Throws<BasketQuantityExceedException>(() => basket.Add(seaFoodSaladBasketItem));
             Assert.Equal("You are already exceed the basket quantity", exception.Message);
         }
     }
