@@ -9,8 +9,9 @@ namespace DelivericiousNet.Core
         private const int BASKET_LIMIT = 100;
         private readonly Guid _id;
         private readonly List<BasketItem> _items = new();
-        public Basket() : this(Guid.NewGuid()){}
-        
+
+        public Basket() : this(Guid.NewGuid()) { }
+
         public Basket(Guid id)
         {
             _id = id;
@@ -20,9 +21,9 @@ namespace DelivericiousNet.Core
         {
             if (Count() + basketItem.Quantity > BASKET_LIMIT)
             {
-                throw new Exception();
+                throw new BasketQuantityExceedException(BASKET_LIMIT);
             }
-            
+
             var found = _items.FirstOrDefault(x => x.Menu.Name == basketItem.Menu.Name);
             if (found == null)
             {
@@ -57,7 +58,8 @@ namespace DelivericiousNet.Core
         public void Remove(Menu menu, int quantity = 1)
         {
             var found = _items.FirstOrDefault(x => x.Menu.Name == menu.Name);
-            if (found == null) return;
+            if (found == null)
+                return;
             found.Quantity -= quantity;
             if (found.Quantity == 0)
                 _items.Remove(found);

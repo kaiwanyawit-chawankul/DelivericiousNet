@@ -77,7 +77,11 @@ namespace DelivericiousNet.Core.Test
             basket.Add(seaFoodSaladBasketItem);
             var result = basket.Copy();
             var resultItems = result.Items().ToList();
-            var expectedItems = new [] { chocolateIceCreamsBasketItem, seaFoodSaladBasketItem }.ToList();
+            var expectedItems = new[]
+            {
+                chocolateIceCreamsBasketItem,
+                seaFoodSaladBasketItem
+            }.ToList();
             Assert.NotEqual(result.GetBasketId(), basket.GetBasketId());
             Assert.Equal(resultItems, expectedItems);
         }
@@ -104,7 +108,7 @@ namespace DelivericiousNet.Core.Test
             var chocolateIceCreamsBasketItem = new BasketItem(chocolateIceCreams, 99);
             var seaFoodSaladBasketItem = new BasketItem(seaFoodSalad, 2);
             basket.Add(chocolateIceCreamsBasketItem);
-            Assert.Throws<Exception>(() => basket.Add(seaFoodSaladBasketItem));}
+            Assert.Throws<BasketQuantityExceedException>(() => basket.Add(seaFoodSaladBasketItem));
         }
     }
-
+}
