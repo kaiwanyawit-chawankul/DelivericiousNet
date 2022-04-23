@@ -7,8 +7,19 @@ namespace DelivericiousNet.Core.Test
         [Fact]
         public void MoneyWithSameAmountAndCurrencyShouldBeEqual()
         {
-            var money = Money.SGD(10);
             Assert.Equal(Money.SGD(10), Money.SGD(10));
+        }
+
+        [Fact]
+        public void MoneyWithDiffentAmountAndCurrencyShouldNoBeEqual()
+        {
+            Assert.NotEqual(Money.SGD(11), Money.SGD(10));
+        }
+
+        [Fact]
+        public void MoneyWithDiffentCurrencyShouldNoBeEqual()
+        {
+            Assert.NotEqual(Money.THB(10), Money.SGD(10));
         }
     }
 }

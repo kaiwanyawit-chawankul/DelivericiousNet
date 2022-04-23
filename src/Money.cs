@@ -20,5 +20,10 @@ namespace DelivericiousNet.Core
         {
             return new Money(amount, Core.Currency.SGD);
         }
+
+        public static Money THB(decimal amount)
+        {
+            return new Money(amount, Core.Currency.THB);
+        }
     }
 }
