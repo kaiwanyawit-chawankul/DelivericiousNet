@@ -127,5 +127,13 @@ namespace DelivericiousNet.Core.Test
             var savedBasket = basketRepository.GetBasketById(basket.Id);
             Assert.Equal(basket, savedBasket);
         }
+
+        [Fact]
+        public void ShouldNotAbleToSaveBasketInRepositoryIfBasketIsNull()
+        {
+            Basket basket = null;
+            BasketRepository basketRepository = new BasketRepository();
+            Assert.Throws<Exception>(() => basketRepository.Save(basket));
+        }
     }
 }
