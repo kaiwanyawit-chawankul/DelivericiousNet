@@ -9,6 +9,7 @@ namespace DelivericiousNet.Core
         private const int BASKET_LIMIT = 100;
         public static readonly Coupon DELIVERICIOUS_10 = new Coupon("DELIVERICIOUS_10", 10);
         public Guid Id { get; }
+        private CheckoutStatus _status;
         private readonly List<BasketItem> _items = new();
         private List<Coupon> _coupons = new List<Coupon>();
 
@@ -89,6 +90,16 @@ namespace DelivericiousNet.Core
             {
                 _coupons.Add(DELIVERICIOUS_10);
             }
+        }
+
+        public void CheckoutCompleted()
+        {
+            _status = CheckoutStatus.COMPLETED;
+        }
+
+        public CheckoutStatus GetBasketStatus()
+        {
+            return _status;
         }
     }
 }

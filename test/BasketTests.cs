@@ -129,5 +129,17 @@ namespace DelivericiousNet.Core.Test
             Assert.Equal(expected.Name, coupons.First().Name);
             Assert.Equal(expected.DiscountPercent, coupons.First().DiscountPercent);
         }
+
+        [Fact]
+        public void ShouldKnowCheckoutStatusIsCompleted()
+        {
+            Basket basket = new Basket();
+            var tomatoSoup = new Menu("Tomato soup", Money.SGD(2), MenuType.SOUP);
+            var tomatoSoupBasketItem = new BasketItem(tomatoSoup, 6);
+            basket.Add(tomatoSoupBasketItem);
+            CheckoutService service = new CheckoutService();
+            service.Checkout(basket);
+            Assert.Equal(CheckoutStatus.COMPLETED, basket.GetBasketStatus());
+        }
     }
 }
