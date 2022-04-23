@@ -19,9 +19,9 @@ namespace DelivericiousNet.Core
 
         public void Add(BasketItem basketItem)
         {
-            if (Count() + basketItem.Quantity > BASKET_LIMIT)
+            if (GetBasketQuantity() + basketItem.Quantity > BASKET_LIMIT)
             {
-                throw new BasketQuantityExceedException(BASKET_LIMIT);
+                throw new Exception("You are already exceed the basket quantity");
             }
 
             var found = _items.FirstOrDefault(x => x.Menu.Name == basketItem.Menu.Name);
@@ -40,7 +40,7 @@ namespace DelivericiousNet.Core
             return _id;
         }
 
-        private int Count()
+        private int GetBasketQuantity()
         {
             return _items.Sum((item => item.Quantity));
         }
