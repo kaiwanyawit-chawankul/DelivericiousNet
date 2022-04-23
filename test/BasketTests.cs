@@ -121,11 +121,11 @@ namespace DelivericiousNet.Core.Test
         [Fact]
         public void ShouldSaveBasketInRepository()
         {
-            Basket basket1 = new Basket();
+            Basket basket = new Basket();
             BasketRepository basketRepository = new BasketRepository();
-            basketRepository.Add(basket1);
-            var savedBasket1 = basketRepository.GetBasket(basket1);
-            Assert.Equal(basket1.Id, savedBasket1.Id);
+            basketRepository.Save(basket);
+            var savedBasket = basketRepository.GetBasketById(basket.Id);
+            Assert.Equal(basket, savedBasket);
         }
     }
 }
