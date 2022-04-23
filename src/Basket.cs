@@ -7,8 +7,10 @@ namespace DelivericiousNet.Core
     public class Basket
     {
         private const int BASKET_LIMIT = 100;
+        public static readonly Coupon DELIVERICIOUS_10 = new Coupon("DELIVERICIOUS_10", 10);
         public Guid Id { get; }
         private readonly List<BasketItem> _items = new();
+        private List<Coupon> _coupons = new List<Coupon>();
 
         public Basket() : this(Guid.NewGuid()) { }
 
@@ -28,6 +30,7 @@ namespace DelivericiousNet.Core
             if (found == null)
             {
                 _items.Add(basketItem);
+                PopulateCoupon();
             }
             else
             {
@@ -57,7 +60,10 @@ namespace DelivericiousNet.Core
                 return;
             found.Quantity -= quantity;
             if (found.Quantity == 0)
+            {
                 _items.Remove(found);
+                PopulateCoupon();
+            }
         }
 
         public Basket Copy()
@@ -68,6 +74,21 @@ namespace DelivericiousNet.Core
                 newBasket.Add(item);
             }
             return newBasket;
+        }
+
+        public List<Coupon> AvailableCoupons()
+        {
+            return _coupons;
+        }
+
+        private void PopulateCoupon()
+        {
+            _coupons.Clear();
+            var count = _items.Where(item => item.Menu.MenuType == MenuType.SOUP).Sum((item) => item.Quantity);
+            if (count >= 5 && !_coupons.Contains(DELIVERICIOUS_10))
+            {
+                _coupons.Add(DELIVERICIOUS_10);
+            }
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Xunit;
 
@@ -116,6 +115,19 @@ namespace DelivericiousNet.Core.Test
                 () => basket.Add(seaFoodSaladBasketItem)
             );
             Assert.Equal("You are already exceed the basket quantity", exception.Message);
+        }
+
+        [Fact]
+        public void ShouldShowCouponFor5Soups()
+        {
+            Basket basket = new Basket();
+            var tomatoSoup = new Menu("Tomato soup", Money.SGD(2), MenuType.SOUP);
+            var tomatoSoupBasketItem = new BasketItem(tomatoSoup, 5);
+            basket.Add(tomatoSoupBasketItem);
+            var coupons = basket.AvailableCoupons();
+            var expected = Basket.DELIVERICIOUS_10;
+            Assert.Equal(expected.Name, coupons.First().Name);
+            Assert.Equal(expected.DiscountPercent, coupons.First().DiscountPercent);
         }
     }
 }
